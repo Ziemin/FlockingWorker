@@ -1,0 +1,44 @@
+{
+  "Tasks": [
+    {
+      "Name": "Codegen",
+      "Steps": [
+        {
+          "Name": "Run",
+          "Arguments": ["codegen", "--clean_before_generate", "-i", "../../build/dependencies/schema/CoreLibrary", "-i", "../../schema", "-o", "generated", "-L", "cpp" ]
+        }
+      ]
+    },
+    {
+      "Name": "Build",
+      "Steps": [
+        {
+          "Name": "Prepare build directory",
+          "Command": "bash",
+          "Arguments": ["-c", "mkdir -p build"]
+        },
+        {
+          "Name": "CMake steps",
+          "WorkingPath": "build",
+          "Command": "bash",
+          "Arguments": ["../generate.sh"]
+        },
+        {
+          "Name": "C++",
+          "WorkingPath": "build",
+          "Command": "cmake",
+          "Arguments": ["--build", ".", "--config", "Release"]
+        }
+      ]
+    },
+    {
+      "Name": "Clean",
+      "Steps": [
+        {
+          "Name": "C++",
+          "Arguments": ["file", "rm", "-r", "build", "generated"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+syntax = "proto2";
+package schema.demoteam;
+
+import "improbable/entity_state.proto";
+
+message UpdateTimeEventData {
+  optional int64 entityId = 1;
+  optional double startTime = 2;
+  optional double duration = 3;
+}
+
+message FlockStatsData {
+  repeated UpdateTimeEventData entityUpdateTime = 1;
+}
+
+extend improbable.EntityState {
+  optional FlockStatsData flockStats = 1029
+    [(improbable.entity_state_options) = {
+      state_synchronized: true
+      state_queryable: false
+    }];
+}
+     

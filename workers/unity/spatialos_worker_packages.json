@@ -1,0 +1,31 @@
+{
+  "targets": [
+    {
+      "path": "Assets/Improbable",
+      "clear_path": true,
+      "packages": [
+        {
+          "name": "Improbable.CoreLibrary"
+        },
+        {
+          "name": "Improbable.EditorTools"
+        },
+        {
+          "name": "Improbable.GelSharp"
+        },
+        {
+          "name": "Improbable.Unity"
+        }
+      ]
+    },
+    {
+      "path": "Assets/Plugins/Improbable",
+      "clear_path": true,
+      "packages": [
+        {
+          "name": "Improbable.RakNetPlugin"
+        }
+      ]
+    }
+  ]
+}

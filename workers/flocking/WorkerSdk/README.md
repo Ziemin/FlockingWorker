@@ -1,0 +1,1 @@
+Please install the SpatialOS Worker SDK here.

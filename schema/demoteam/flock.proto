@@ -1,0 +1,27 @@
+syntax = "proto2";
+package schema.demoteam;
+
+import "improbable/entity_state.proto";
+
+message FlockingData {
+  optional float attractCoefficient = 1;
+  optional float followCoefficient = 2;
+  optional float repelCoefficient = 3;
+  optional float repelSeparationForHalf = 4;
+  optional float searchRange = 5;
+  optional int32 numberToConsider = 6;
+  optional float speed = 7;
+  optional float drag = 8;
+  optional float velocitySpring = 9;
+  optional float verticalConfinementCoefficient = 10;
+  optional float maxTurnDegreesPerSecond = 11;
+}
+
+extend improbable.EntityState {
+  optional FlockingData flock = 1026
+    [(improbable.entity_state_options) = {
+      state_synchronized: true
+      state_queryable: false
+    }];
+}
+     

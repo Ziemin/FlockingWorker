@@ -1,0 +1,14 @@
+--number_of_cubes=0
+--number_of_gatherers=0
+--cube_spawn_radius=60
+
+--number_of_birds=128
+--num_bird_cells=4
+--bird_cage_size=200
+--bird_spawn_radius=8
+
+--cube_up_impulse=1
+--cube_lateral_impulse=500
+--cube_impulse_interval_millis=2000
+
+--restart=2

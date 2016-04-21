@@ -1,0 +1,5 @@
+package demoteam.buildingdemo.launcher
+
+import improbable.papi.engine.EngineConstraint
+
+case object FlockingWorkerConstraint extends EngineConstraint
