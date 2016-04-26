@@ -24,9 +24,6 @@
 #include "Geometry.h"
 
 #define USE_PARTITIONING
-//#define DEBUG_PARTITIONING
-
-//#pragma optimize("", off)
 
 using namespace improbable::math;
 using namespace demoteam;
@@ -186,13 +183,7 @@ namespace
 
 unsigned int calcGridIndex(TVector3fArg pos, const Aabb3& worldExtents, float gridSize)
 {
-//	assert(boxContains(pos));
-
 	auto maxIndices = (worldExtents.RightTopFront - worldExtents.LeftBottomBack)/gridSize;
-
-	//assert(maxIndices.X() < (1 << maxBitsX));
-	//assert(maxIndices.Y() < (1 << maxBitsY));
-	//assert(maxIndices.Z() < (1 << maxBitsZ));
 
 	Vector3f gridIndices = (pos - worldExtents.LeftBottomBack)/gridSize;
 
@@ -240,7 +231,6 @@ void BuildSpatialGrid(TBuckets& buckets, const worker::View& view)
 		{
 			// make a new one
 			auto box = gridIndexToBox(gridIdx, worldExtents, gridSize);
-			//assert(boxContains(box, transform->position()));
 			if (!boxContains(box, toVector3f(transform->position())))
 			{
 				printf("placed entity in a box that does not well describe its position :(\n");
@@ -268,7 +258,6 @@ void forAllEntitiesWithinRadius(const TBuckets& spatialGrid, const TransformData
 		int nentsThisBucket = buck->Entities.size();
 		nentsTotal += nentsThisBucket;
 
-		//if (boxSphereOverlap(buck->Box, sphere))
 		if(buck->IntersectionHelper.IntersectionAt(sphere.Origin))
 		{
 			nentsBucket += nentsThisBucket;
@@ -287,8 +276,6 @@ void forAllEntitiesWithinRadius(const TBuckets& spatialGrid, const TransformData
 			}
 		}
 	}
-
-	//printf("SpatialGrid: %d|%d|%d\n", nentsTotal, nentsBucket, nentsRange);
 }
 //***************************************************************************************************************
 int CountEntitiesWithinLinearSearch(const worker::View& view, const TransformData*const* transformCache, const worker::EntityId& flockerId, TVector3fArg pos, float r)
@@ -302,7 +289,7 @@ int CountEntitiesWithinLinearSearch(const worker::View& view, const TransformDat
 	itEnt != itEnd;
 		++itEnt)
 	{
-		auto neighbourTransform = transformCache[++ient]; //itFlocker->second.Get<Transform>();
+		auto neighbourTransform = transformCache[++ient];
 		if (neighbourTransform != nullptr && itEnt->first != flockerId && sqrMag(toVector3f(neighbourTransform->position()) - pos) < sqr(r))
 		{
 			++nentitiesLinear;
@@ -462,7 +449,7 @@ void UpdateFlocking(
 					itEnt != itEnd;
 					++itEnt)
 			{
-				auto neighbourTransform = transformCache[++ient]; //itFlocker->second.Get<Transform>();
+				auto neighbourTransform = transformCache[++ient];
 				if (neighbourTransform!=nullptr && itEnt->first != flockerId)
 				{
 					++nitersLocal;
@@ -612,9 +599,6 @@ void Run(worker::Connection& connection)
 
 			{				
 				// single thread
-				//
-				//UpdateFlocking(flockers, 0, flockers.size(), view, connection, g_secondsPerFrame*loadStore);
-				
 				// make sure we write to the load store
 				loadStore = std::max(calcAverageLoad(), 1.0f); // make sure we don't go slower than optimum!
 
@@ -727,9 +711,6 @@ int main(int argc, char**argv)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 	}
-	
-	//thread.detach();
-
     return 0;
 }
 
